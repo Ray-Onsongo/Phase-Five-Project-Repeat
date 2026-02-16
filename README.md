@@ -36,6 +36,7 @@ This project follows the **CRISP-DM (Cross Industry Standard Process for Data Mi
 The data was obtained from **Kaggle**, [The dataset](https://www.kaggle.com/datasets/techsalerator/job-posting-data-in-kenya). Techsalerator's Job Openings Data for Kenya provides a detailed and valuable overview of job opportunities across various sectors in Kenya. This dataset consolidates and categorizes job-related information from multiple sources, including company websites, job boards, and recruitment agencies, offering key insights into the Kenyan labor market.
 
 **Dataset Overview:**
+
 The dataset contains 9,919 job postings collected between February and September 2024, with 21 features describing job titles, descriptions, locations, seniority levels, contract types, salary information, and standardized occupational classifications. Most critical columns such as Job Opening Title (100%), Description (98.9%), Location (95.9%), and Seniority (100%) are highly complete, providing strong analytical reliability.
 
 The dataset is predominantly text-based, making it highly suitable for:
@@ -45,6 +46,7 @@ The dataset is predominantly text-based, making it highly suitable for:
 - Market trend analysis
 
 **Data Quality Assesment:**
+
 The dataset demonstrates strong completeness in core descriptive fields and is well-suited for NLP-driven skill analysis and job market intelligence. Moderate preprocessing is required for JSON parsing, categorical normalization, and handling sparse salary data before advanced modeling.
 
 Some of the data quality highlights are;
@@ -54,6 +56,7 @@ Some of the data quality highlights are;
 - `Location(JSON)` Requires parsing
 
 **Data Cleaning:**
+
 From our observaions, we noted that there were issues we needed to tackle so as to get the data ready for modelling. We decided to tackle the issues in this order;
 - Drop completely empty columns
 - Parse JSON columns (Location and Salary Data)
