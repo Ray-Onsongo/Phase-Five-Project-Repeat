@@ -32,7 +32,8 @@ Some of the **business objectives** are;
 ## 2. Data Understanding
 This project follows the **CRISP-DM (Cross Industry Standard Process for Data Mining)** framework to ensure a structured and rigorous data science workflow.
 
-**Data Source:**  
+**Data Source:** 
+
 The data was obtained from **Kaggle**, [The dataset](https://www.kaggle.com/datasets/techsalerator/job-posting-data-in-kenya). Techsalerator's Job Openings Data for Kenya provides a detailed and valuable overview of job opportunities across various sectors in Kenya. This dataset consolidates and categorizes job-related information from multiple sources, including company websites, job boards, and recruitment agencies, offering key insights into the Kenyan labor market.
 
 **Dataset Overview:**
@@ -65,7 +66,9 @@ From our observaions, we noted that there were issues we needed to tackle so as 
 - Clean categorical/text data
 - Create new features for the model
 
+---
 
+## 3. Exploratory Data Analysis
 
 
 
