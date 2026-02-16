@@ -1,2 +1,2 @@
 # Data-Driven Job Market Analytics Platform
-![Project Banner](Images/projectbanner.png)
+![Project Banner](Images/Project_banner.png)
