@@ -5,7 +5,8 @@
 **Project Date:** February 2026  
 
 ## Team Members
-- Kigen Tuwei 
+- Kigen Tuwei
+- Kelvin Sesery
 - Ray Onsongo 
 - Kennedy Wamwati  
 - Victor Wasunna
