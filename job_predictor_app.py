@@ -22,11 +22,11 @@ class JobCategoryPredictor:
         """
         Initialize the predictor with ensemble predictions for calibration
         """
-        print("🔄 Initializing Job Category Predictor...")
+        print("Initializing Job Category Predictor...")
 
         # Check if file exists
         if not os.path.exists(ensemble_predictions_path):
-            st.error(f"❌ File not found: {ensemble_predictions_path}")
+            st.error(f"File not found: {ensemble_predictions_path}")
             st.info("Please make sure 'ensemble_predictions.csv' is in the same directory as this app.")
             self.ensemble_df = pd.DataFrame()
         else:
@@ -73,9 +73,9 @@ class JobCategoryPredictor:
             # Default priors if no data
             self.category_priors = {i: 1/23 for i in range(23)}
 
-        print(f"✅ Loaded {len(self.category_mapping)} job categories")
+        print(f"Loaded {len(self.category_mapping)} job categories")
         if len(self.ensemble_df) > 0:
-            print(f"✅ Calibrated with {len(self.ensemble_df)} ensemble predictions")
+            print(f"Calibrated with {len(self.ensemble_df)} ensemble predictions")
 
     def _extract_patterns(self):
         """
@@ -268,7 +268,7 @@ class JobCategoryPredictor:
 # Page config
 st.set_page_config(
     page_title="Job Category Predictor",
-    page_icon="🎯",
+    page_icon=" ",
     layout="wide"
 )
 
@@ -326,23 +326,23 @@ st.markdown("""
 
 # Initialize session state
 if 'predictor' not in st.session_state:
-    with st.spinner('🔄 Loading Job Category Predictor...'):
+    with st.spinner('Loading Job Category Predictor...'):
         # Check if ensemble_predictions.csv exists
         if os.path.exists('ensemble_predictions.csv'):
             st.session_state.predictor = JobCategoryPredictor('ensemble_predictions.csv')
         else:
-            st.warning("⚠️ ensemble_predictions.csv not found. Using default settings.")
+            st.warning("ensemble_predictions.csv not found. Using default settings.")
             st.session_state.predictor = JobCategoryPredictor()  # Will work with defaults
         st.session_state.history = []
         st.session_state.prediction_count = 0
 
 # Header
-st.markdown('<h1 class="main-header">🎯 Job Category Predictor</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header"> Job Category Predictor</h1>', unsafe_allow_html=True)
 st.markdown("### Powered by Ensemble Learning | 23 Job Categories")
 
 # Sidebar
 with st.sidebar:
-    st.markdown("## 📊 Dashboard")
+    st.markdown("## Dashboard")
     st.markdown("---")
 
     # Quick stats
@@ -379,13 +379,13 @@ with st.sidebar:
     """)
 
 # Main content
-tab1, tab2, tab3 = st.tabs(["🔮 Predict", "📊 Analytics", "📋 History"])
+tab1, tab2, tab3 = st.tabs(["Predict", "Analytics", "History"])
 
 with tab1:
     col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.markdown("### 📝 Job Details")
+        st.markdown("### Job Details")
 
         # Input form
         with st.form("prediction_form"):
@@ -417,12 +417,12 @@ with tab1:
             )
 
             submitted = st.form_submit_button(
-                "🎯 Predict Category", 
+                "Predict Category", 
                 use_container_width=True
             )
 
     with col2:
-        st.markdown("### 📋 Example Jobs")
+        st.markdown("### Example Jobs")
         st.markdown("Click to load an example:")
 
         examples = {
@@ -464,9 +464,9 @@ with tab1:
     # Prediction area
     if submitted:
         if not job_title or not job_description:
-            st.error("❌ Please provide both Job Title and Job Description")
+            st.error("Please provide both Job Title and Job Description")
         else:
-            with st.spinner('🔮 Analyzing job posting...'):
+            with st.spinner('Analyzing job posting...'):
                 time.sleep(1)  # Simulate processing
 
                 # Parse skills
@@ -498,7 +498,7 @@ with tab1:
                 col3, col4 = st.columns([1, 1])
 
                 with col3:
-                    st.markdown("### 🎯 Primary Prediction")
+                    st.markdown("### Primary Prediction")
 
                     primary = result['primary_prediction']
 
@@ -517,7 +517,7 @@ with tab1:
                     st.markdown(f"**Seniority Level:** {result['seniority_level']}")
 
                 with col4:
-                    st.markdown("### 📊 Top 5 Categories")
+                    st.markdown("### Top 5 Categories")
 
                     # Display top predictions with confidence bars
                     for i, pred in enumerate(result['all_predictions'][:5], 1):
@@ -534,7 +534,7 @@ with tab1:
                         """, unsafe_allow_html=True)
 
                 # Feature summary
-                st.markdown("### 🔍 Analysis Summary")
+                st.markdown("### Analysis Summary")
                 col5, col6, col7 = st.columns(3)
 
                 with col5:
@@ -545,7 +545,7 @@ with tab1:
                     st.metric("Features Analyzed", result['features_extracted'])
 
 with tab2:
-    st.markdown("### 📊 Category Analytics")
+    st.markdown("### Category Analytics")
 
     # Get stats
     stats_df = st.session_state.predictor.get_category_stats()
@@ -574,7 +574,7 @@ with tab2:
 
     # Model performance summary (if ensemble data available)
     if len(st.session_state.predictor.ensemble_df) > 0:
-        st.markdown("### 📈 Model Performance")
+        st.markdown("### Model Performance")
 
         df = st.session_state.predictor.ensemble_df
         if 'actual' in df.columns and 'predicted' in df.columns:
@@ -589,7 +589,7 @@ with tab2:
                 st.metric("Categories", "23")
 
 with tab3:
-    st.markdown("### 📋 Prediction History")
+    st.markdown("### Prediction History")
 
     if st.session_state.history:
         # Convert history to dataframe
@@ -613,7 +613,7 @@ with tab3:
 st.markdown("---")
 st.markdown(
     "<p style='text-align: center; color: gray;'>"
-    "Made with ❤️ using Streamlit | Job Category Predictor v1.0"
+    "Made with using Streamlit | Job Category Predictor v1.0"
     "</p>", 
     unsafe_allow_html=True
 )
