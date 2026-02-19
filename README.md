@@ -71,6 +71,25 @@ From our observaions, we noted that there were issues we needed to tackle so as 
 
 ## 3. Exploratory Data Analysis
 
+## 4. Feature Engineering
+
+This project implements a structured and systematic feature engineering pipeline designed to transform raw job posting data into a model-ready dataset. Following initial exploratory analysis, inconsistencies in categorical fields, particularly within the `Category_list column`, were identified and corrected. Entries stored as malformed strings, empty values, invalid JSON-like structures, or placeholder categories such as “unknown” were standardized to ensure clean and reliable categorical extraction.
+
+Text-based feature engineering was applied to the `Description` column to extract interpretable and lightweight numerical signals before introducing advanced NLP techniques. These engineered features capture description length and complexity, detect requirement-related language, identify educational qualifications, and convert recurring textual patterns into structured indicators. This approach preserves interpretability while improving predictive potential.
+
+Geographical features were engineered to capture broader regional trends without inflating dimensionality. Since country and state fields often exhibit high cardinality, direct encoding would introduce sparsity and overfitting risk. Instead, geographic attributes were grouped, rare categories were handled appropriately, and binary indicators were constructed to reflect meaningful regional patterns.
+
+Company-level features were aggregated to address the high-cardinality nature of raw company names. Rather than encoding each company individually, posting frequency and dominance metrics were computed to capture organizational scale and hiring intensity. This enables the model to learn from company behavior without introducing excessive categorical expansion.
+
+Temporal features were extracted from job posting timestamps to model seasonal, weekly, and recency-related trends. These include quarter-based hiring cycles, weekday versus weekend activity, and time-based signals reflecting hiring urgency. By transforming raw timestamps into structured features, the model can leverage behavioral patterns in job posting activity.
+
+Composite features were constructed to capture higher-order interactions between seniority, job categories, title indicators, and company context. These interaction features quantify role complexity, technical specialization, and seniority-function relationships, providing richer representations beyond isolated variables.
+
+Finally, the modeling pipeline organizes engineered features into logical groups, dynamically selects available predictors, defines balanced target variables, and prepares the dataset for training through encoding and scaling. This structured approach ensures flexibility, scalability, and reproducibility while aligning modeling strategies with the project’s business objectives.
+
+---
+
+## 5. Modelling
 
 
 
