@@ -69,9 +69,7 @@ From our observaions, we noted that there were issues we needed to tackle so as 
 
 ---
 
-## 3. Exploratory Data Analysis
-
-## 4. Feature Engineering
+## 3. Feature Engineering
 
 This project implements a structured and systematic feature engineering pipeline designed to transform raw job posting data into a model-ready dataset. Following initial exploratory analysis, inconsistencies in categorical fields, particularly within the `Category_list column`, were identified and corrected. Entries stored as malformed strings, empty values, invalid JSON-like structures, or placeholder categories such as “unknown” were standardized to ensure clean and reliable categorical extraction.
 
@@ -89,13 +87,63 @@ Finally, the modeling pipeline organizes engineered features into logical groups
 
 ---
 
-## 5. Modelling
+## 4. Modelling
 
+The primary modeling objective was **Job Category Classification**, a 23-class multi-class classification task designed to automate job categorization for recruiters. Additional supervised tasks included Seniority Level Prediction, US Job Prediction (binary), and Full-Time Job Prediction (binary). Multiple algorithms were evaluated across these tasks, including Random Forest, Logistic Regression (One-vs-Rest), XGBoost, Gradient Boosting, SVM, and Neural Networks.
 
+A `Dummy Stratified Classifier` established a baseline accuracy of 11.37%, reflecting random class distribution performance. Initial models significantly outperformed this baseline. Random Forest achieved 58.87% accuracy, Logistic Regression reached 54.49%, and XGBoost performed best among the initial models at 60.04% accuracy with stable 5-fold cross-validation (mean ≈ 59.4%).
 
+To improve performance further, several enhancement strategies were implemented:
+- Class imbalance handling using inverse-frequency class weights
+- Enhanced text feature engineering
+- Creation of interaction (composite) features
+- Model stacking
+- Hyperparameter tuning
 
+Feature engineering expanded the dataset from 9 to 12 structured features, including interaction terms such as   `seniority_company_interaction`, `technical_us_interaction`, and `desc_length_category_interaction`. Although stacking did not improve results (**accuracy dropped to 43.48%**), enhanced XGBoost improved performance to 61.26% accuracy.
 
+Further optimization introduced **TF-IDF** features (100 terms) and additional keyword indicators, increasing the feature space to **17 total features**. Hyperparameter tuning via randomized search optimized XGBoost parameters (e.g., max_depth=8, n_estimators=300, learning_rate=0.2), raising performance to **64.07% accuracy**.
 
+A final lightweight **Voting Ensemble** combining optimized models achieved the best performance at **65.04% accuracy**, representing a **+470% improvement** over baseline and an **+8% improvement** over the original XGBoost model.
+
+### 5.1 Model Evaluation & Selection
+Model performance was evaluated using Accuracy, Precision, Recall, F1-score, and 5-fold cross-validation to ensure generalization. The final comparison showed:
+
+- Dummy Baseline: 11.37%
+- Random Forest: 58.87%
+- Logistic Regression: 54.49%
+- XGBoost (Original): 60.04%
+- XGBoost (Optimized): 64.07%
+- **Voting Ensemble: 65.04% (Best)**
+
+Cross-validation for the optimized XGBoost model yielded a mean accuracy of 63.93% (±0.0075), indicating stable performance across folds.
+
+Feature importance analysis revealed that the most influential predictors were:
+
+- `seniority_level`
+- `num_categories`
+- `has_technical_category`
+- Description length features (`desc_word_count`, `desc_char_count`)
+- Geographic indicator (`is_us`)
+- Company size and interaction features
+
+The Voting Ensemble was selected as the final model due to its highest overall accuracy and balanced precision-recall tradeoff. The final model:
+- Uses**17 engineered features**
+- Predicts across **23 job categories**
+- Trained on **7,845 samples**
+- Achieved **65.04% test accuracy**
+
+## 5. Deployment
+The final job category predictor was embedded directly into a user-friendly Streamlit application so that it can be used in real-world recruitment and HR workflows. The goal of deployment is to make job classification practical for recruiters, hiring managers, and job seekers, not just technically accurate.
+
+The application is designed so that the user only needs to provide the core **job details: Job Title, Job Description, and optionally key Skills and Years of Experience**. All other calculations, such as category scoring, seniority estimation, and confidence calibration, are automatically handled in the background by the system. This ensures that the app remains intuitive and accessible while still leveraging the complex ensemble modeling and keyword-based logic developed during training.
+
+This design choice was intentional because requiring users to manually input detailed probabilities, category mappings, or model internals would make the system cumbersome and reduce adoption. By keeping the input simple, the tool becomes practical and ready for real-world HR and recruiting use.
+
+The deployed application provides not only primary job category predictions but also a confidence ranking for the top 5 categories, a seniority level estimation, and analytics on category distribution to give users actionable insights.
+
+The deployed application can be accessed here:
+After cloning the repository run this code in your terminal `streamlit run job_predictor_app.py`
 
 
 
